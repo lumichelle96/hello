@@ -1,16 +1,14 @@
-class Ello::API
-    def self.fetch(article)
+class Ello::Api
+    def self.grab(article)
         url = "https://www.kron4.com/?s=&submit=Search/#{article}"
-        response = HTTparty.get(url)
+        response = HTTParty.get(url)
 
         if !response.empty?
             article_instance = Ello::Article_Name.new(article)
             response.each do |a|
                 name = a["name"]
-                article = a["date"]
-                author = a["author"]
 
-                Ello::Name.new(name,date,author)
+                Ello::Article_Name.new(name)
             end
         else
             puts "Sorry, your article could not be found, please check spelling and type it once again."

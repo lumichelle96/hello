@@ -1,14 +1,14 @@
-class Ello:Article_Name
+class Ello::Article_Name
     attr_accessor :name
 
     @@all = []
 
-    def initialize
+    def initialize(name)
         @name = name
-        @@all << seld
+        @@all << self
     end
 
     def self.all
-        @all
+        @@all
     end
 end

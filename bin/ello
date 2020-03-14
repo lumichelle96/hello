@@ -1,4 +1,8 @@
 #!/usr/bin/env ruby
 require './lib/environment'
+require './lib/ello/api'
+require './lib/ello/cli'
+require './lib/ello/article'
+require './lib/ello/name'
 
 Ello::CLI.new.start
