@@ -1,7 +1,5 @@
-require_relative "./ello/version"
-require_relative "./ello/cli"
-require "pry"
-require "httparty"
+require "./lib/ello/version.rb"
+require "./lib/ello/cli"
 
 module Ello
   class Error < StandardError; end

@@ -2,7 +2,7 @@
 require './lib/environment'
 require './lib/ello/api'
 require './lib/ello/cli'
-require './lib/ello/article'
-require './lib/ello/name'
+require 'Nokogiri'
+require 'HTTParty'
 
 Ello::CLI.new.start

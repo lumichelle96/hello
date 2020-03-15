@@ -1,20 +1,32 @@
+require 'HTTParty'
+
 class Ello::Api
-    def self.grab(article)
-        url = "https://www.kron4.com/?s=&submit=Search/#{article}"
-        response = HTTParty.get(url)
+    
+    def self.grab
+        self.hash
+    end
 
-        if !response.empty?
-            article_instance = Ello::Article_Name.new(article)
-            response.each do |a|
-                name = a["name"]
+    def self.hash
 
-                Ello::Article_Name.new(name)
-            end
-        else
-            puts "Sorry, your article could not be found, please check spelling and type it once again."
-            input = gets.chomp.downcase
-            self.fetch(input)
-        end
-        
+        articles = self.article_names
+        links = self.article_links
+
+        Hash[articles.zip(links)]
+
+    end
+
+
+    def self.names
+        news = HTTParty.get("https://www.kron4.com/news")
+        ello = Nokogiri::HTML.parse(news)
+        ello.css('div.article-list__content') 
+    end
+
+    def self.article_names
+        self.names.css('div.article-list__article-text a').map.with_index {|name| name.text.strip}
+    end
+
+    def self.article_links
+        self.names.css('div.article-list__article-text a').map.with_index { |link| link ['href'].strip }
     end
 end

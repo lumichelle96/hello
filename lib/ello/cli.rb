@@ -1,39 +1,35 @@
 class Ello::CLI
     def start
-        puts "Hello, welcome to Kron4 news."
-        puts "Please type in which article you would like to look up."
-        article_name = gets.chomp.downcase
-        Ello::Api.grab(article_name)
         display_article
-        loop_or_exit
+        choices
+        bye
     end
 
     def display_article
-        Ello::Article_Name.all.each.with_index(1) do |a,index|
-            puts "#{index}. #{a.name}"
-            puts"------"
+        puts "Today's top news: "
+        
+        @articles = Ello::Api.grab
+        @articles.each.with_index(1) do |article,i|
+            puts "#{i}. #{article}"
         end
     end
 
-    def loop_or_exit
-        puts "Would you like to search more articles? enter y/n"
-        input = gets.chomp.downcase
-        if input == "y"
-            start
-        else
-            puts "Would you like to the history of what you have searched? enter y/n"
-            new_input = gets.chomp.downcase
-            history(new_input)
+    def choices
+        input = nil
+        while input != "exit"
+            puts "If you would like to see the list again type display, if you are done please type exit"
+            input = gets.strip.downcase
+
+            if input == "display"
+                display_article
+            elsif input == "exit"
+            else
+                puts "Not sure what you want, type display or exit."
+            end
         end
     end
 
-    def history(input)
-        if input == "y"
-            display_article
-            loop_or_exit
-        else 
-            exit
-        end 
+    def bye
+        puts "Bye, see you again!"
     end
-
 end
