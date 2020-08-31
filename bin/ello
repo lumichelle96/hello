@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 require './lib/environment'
-require './lib/ello/api'
-require './lib/ello/cli'
-require 'Nokogiri'
-require 'HTTParty'
+
 
 Ello::CLI.new.start
